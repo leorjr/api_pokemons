@@ -24,6 +24,13 @@ class InMemoryPokemonRepository implements IPokemonRepository {
         return pokemons;
     }
 
+    async getById(id: number): Promise<IPokemon | null | undefined> {
+        const pokemon: IPokemon | null | undefined = this.pokemons
+            .find(item => item.id == id)
+
+        return pokemon;
+    }
+
     async create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon> {
 
         const newPokemon: IPokemon = {

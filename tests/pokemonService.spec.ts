@@ -17,6 +17,22 @@ describe('Pokemon Service', async () => {
         expect(pokemons[0].tipo).toEqual("pikachu")
     })
 
+    it('Deve retornar um pokemon pelo id', async () => {
+        const id: number = 1;
+
+        const receivedPokemon = await service.getById(id)
+
+        assert.equal(receivedPokemon.id, id)
+    })
+
+    it('Deve retornar um erro quando não localizado pokemon pelo id', async () => {
+        const id: number = 2;
+
+        await expect(service.getById(id))
+            .rejects
+            .toThrowError(`pokemon com id 2 não encontrado!`);
+    })
+
     it('Deve cadastrar um novo pokemon', async () => {
 
         const pokemonExpected: IPokemon = {

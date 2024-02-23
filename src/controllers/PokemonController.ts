@@ -13,6 +13,14 @@ class PokemonController {
         response.status(200).json(pokemons)
     }
 
+    static async getById(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const pokemon: IPokemon = await pokemonService.getById(Number(id));
+
+        response.status(200).json(pokemon)
+    }
+
     static async create(request: Request, response: Response) {
         const { tipo, treinador } = request.body;
 

@@ -5,6 +5,7 @@ import { wrapAction } from "../utils/wrapAction"
 const pokemonRouter = express.Router()
 
 pokemonRouter.get('/', wrapAction(PokemonController.list))
+pokemonRouter.get('/:id', wrapAction(PokemonController.getById))
 pokemonRouter.post('/', wrapAction(PokemonController.create))
 
 export {

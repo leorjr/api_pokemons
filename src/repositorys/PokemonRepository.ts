@@ -14,6 +14,13 @@ class PokemonRepository implements IPokemonRepository {
         return pokemons;
     }
 
+    async getById(id: number): Promise<IPokemon | null> {
+        const pokemon: IPokemon | null = await prisma.pokemon
+            .findUnique({ where: { id } })
+
+        return pokemon;
+    }
+
     async create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon> {
         const pokemon: IPokemon = await prisma.pokemon.create({
             data: {
