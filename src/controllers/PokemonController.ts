@@ -12,6 +12,14 @@ class PokemonController {
 
         response.status(200).json(pokemons)
     }
+
+    static async create(request: Request, response: Response) {
+        const { tipo, treinador } = request.body;
+
+        const pokemon: IPokemon = await pokemonService.create({ tipo, treinador })
+
+        response.status(200).json(pokemon)
+    }
 }
 
 export {

@@ -1,8 +1,10 @@
+import { Tipo } from "./Tipo"
+
 interface IPokemon {
-    id?: Number
-    tipo: string
+    id: number
+    tipo: Tipo | string
     treinador: string
-    nivel: Number
+    nivel: number
 }
 
 export {

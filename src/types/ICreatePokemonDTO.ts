@@ -1,6 +1,8 @@
+import { Tipo } from "./Tipo"
+
 interface ICreatePokemonDTO {
-    tipo: String
-    treinador: String
+    tipo: Tipo,
+    treinador: string
 }
 
 export {
