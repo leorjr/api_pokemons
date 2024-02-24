@@ -4,6 +4,7 @@ import { IPokemonService } from "../src/services/IPokemonService";
 import { PokemonService } from "../src/services/PokemonService";
 import { ICreatePokemonDTO } from "../src/types/ICreatePokemonDTO";
 import { IPokemon } from "../src/types/IPokemon";
+import { IUpdatePokemonDTO } from "../src/types/IUpdatePokemonDTO";
 import { Tipo } from "../src/types/Tipo";
 
 describe('Pokemon Service', async () => {
@@ -89,6 +90,20 @@ describe('Pokemon Service', async () => {
         await expect(service.create(createPokemonDTO))
             .rejects
             .toThrowError('tipo só pode ser charizard | mewtwo | pikachu');
+    })
+
+    it('Deve atualizar o pokemon com sucesso', async () => {
+
+        const updatePokemonDTO: IUpdatePokemonDTO = {
+            id: 1,
+            treinador: "teste"
+        }
+
+        const pokemonUpdated: IPokemon = await service
+            .update(updatePokemonDTO)
+
+        expect(pokemonUpdated.treinador)
+            .toEqual(updatePokemonDTO.treinador)
     })
 
 })

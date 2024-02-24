@@ -28,6 +28,15 @@ class PokemonController {
 
         response.status(200).json(pokemon)
     }
+
+    static async update(request: Request, response: Response) {
+        const { id } = request.params;
+        const { treinador } = request.body;
+
+        await pokemonService.update({ id: Number(id), treinador })
+
+        response.status(200).json()
+    }
 }
 
 export {

@@ -1,6 +1,7 @@
 import { Pokemon } from "@prisma/client";
 import { ICreatePokemonDTO } from "../types/ICreatePokemonDTO";
 import { IPokemon } from "../types/IPokemon";
+import { IUpdatePokemonDTO } from "../types/IUpdatePokemonDTO";
 import { IPokemonRepository } from "./IPokemonRepository";
 
 class InMemoryPokemonRepository implements IPokemonRepository {
@@ -14,10 +15,7 @@ class InMemoryPokemonRepository implements IPokemonRepository {
         }
     ];
 
-    getNextIndex(): number {
-        const currentIndex = this.pokemons[this.pokemons.length - 1].id;
-        return currentIndex + 1
-    }
+    private lastId: number = 1;
 
     async list(): Promise<IPokemon[]> {
         const pokemons: Pokemon[] = await this.pokemons;
@@ -34,7 +32,7 @@ class InMemoryPokemonRepository implements IPokemonRepository {
     async create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon> {
 
         const newPokemon: IPokemon = {
-            id: this.getNextIndex(),
+            id: this.lastId + 1,
             tipo: createPokemonDTO.tipo,
             treinador: createPokemonDTO.treinador,
             nivel: 1
@@ -42,7 +40,24 @@ class InMemoryPokemonRepository implements IPokemonRepository {
 
         this.pokemons.push(newPokemon)
 
+        this.lastId += 1;
+
         return newPokemon;
+    }
+
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+
+        const pokemonIndex: number = this.pokemons
+            .findIndex(pokemon => pokemon.id == updatePokemonDTO.id);
+
+        const pokemonToUpdate = this.pokemons[pokemonIndex];
+
+        pokemonToUpdate.treinador = updatePokemonDTO.treinador;
+
+        this.pokemons.splice(pokemonIndex, 1, pokemonToUpdate);
+
+        return pokemonToUpdate;
+
     }
 
 }

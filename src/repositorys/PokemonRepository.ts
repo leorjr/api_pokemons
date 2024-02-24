@@ -1,5 +1,6 @@
 import { ICreatePokemonDTO } from "../types/ICreatePokemonDTO";
 import { IPokemon } from "../types/IPokemon";
+import { IUpdatePokemonDTO } from "../types/IUpdatePokemonDTO";
 import { IPokemonRepository } from "./IPokemonRepository";
 
 import { PrismaClient } from "@prisma/client";
@@ -9,8 +10,9 @@ const prisma = new PrismaClient()
 class PokemonRepository implements IPokemonRepository {
 
     async list(): Promise<IPokemon[]> {
-        const pokemons: IPokemon[] = await prisma.pokemon
+        let pokemons: IPokemon[] = await prisma.pokemon
             .findMany();
+
         return pokemons;
     }
 
@@ -29,7 +31,22 @@ class PokemonRepository implements IPokemonRepository {
                 nivel: 1
             }
         })
+
         return pokemon;
+    }
+
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+
+        const pokemonUpdated = await prisma.pokemon.update({
+            where: {
+                id: updatePokemonDTO.id
+            },
+            data: {
+                treinador: updatePokemonDTO.treinador
+            }
+        })
+
+        return pokemonUpdated;
     }
 }
 

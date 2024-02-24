@@ -2,7 +2,9 @@ import { CustomErrorBase } from "../errors/CustomErrorBase";
 import { IPokemonRepository } from "../repositorys/IPokemonRepository";
 import { ICreatePokemonDTO } from "../types/ICreatePokemonDTO";
 import { IPokemon } from "../types/IPokemon";
+import { IUpdatePokemonDTO } from "../types/IUpdatePokemonDTO";
 import { validateCreatePokemonDTO } from "../utils/validateCreatePokemonDTO";
+import { validateUpdatePokemonDTO } from "../utils/validateUpdatePokemonDTO";
 import { IPokemonService } from "./IPokemonService";
 
 class PokemonService implements IPokemonService {
@@ -32,6 +34,18 @@ class PokemonService implements IPokemonService {
             .create(createPokemonDTO);
 
         return pokemon;
+    }
+
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+
+        validateUpdatePokemonDTO(updatePokemonDTO);
+
+        await this.getById(updatePokemonDTO.id);
+
+        const pokemonUpdated = await this.pokemonRepository.update(updatePokemonDTO);
+
+        return pokemonUpdated;
+
     }
 }
 
