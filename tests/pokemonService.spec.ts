@@ -1,4 +1,4 @@
-import { assert, describe, expect, it } from "vitest";
+import { assert, beforeEach, describe, expect, it } from "vitest";
 import { InMemoryPokemonRepository } from "../src/repositorys/InMemoryPokemonRepository";
 import { IPokemonService } from "../src/services/IPokemonService";
 import { PokemonService } from "../src/services/PokemonService";
@@ -9,7 +9,10 @@ import { Tipo } from "../src/types/Tipo";
 
 describe('Pokemon Service', async () => {
     let service: IPokemonService;
-    service = new PokemonService(new InMemoryPokemonRepository())
+
+    beforeEach(async () => {
+        service = new PokemonService(new InMemoryPokemonRepository())
+    })
 
     it('Deve listar todos os pokemons cadastrados', async () => {
         const pokemons: IPokemon[] = await service.list();
@@ -48,10 +51,10 @@ describe('Pokemon Service', async () => {
             treinador: "teste"
         }
 
-
         const pokemonCreated: IPokemon = await service
             .create(createPokemonDTO);
 
+        expect(pokemonCreated.id).toBeDefined();
         assert.isNotNull(pokemonCreated)
         expect(pokemonCreated.id).toEqual(pokemonExpected.id)
     })
@@ -164,10 +167,7 @@ describe('Pokemon Service', async () => {
 
         const id: number = 2
 
-        await service
-            .delete(id)
-
-        await expect(service.getById(id))
+        await expect(service.delete(id))
             .rejects
             .toThrowError('pokemon com id 2 não encontrado!');
     })
