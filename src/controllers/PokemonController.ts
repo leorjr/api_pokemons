@@ -35,7 +35,7 @@ class PokemonController {
 
         await pokemonService.update({ id: Number(id), treinador })
 
-        response.status(200).json()
+        response.status(204).send()
     }
 }
 

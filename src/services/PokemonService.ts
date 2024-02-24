@@ -36,16 +36,13 @@ class PokemonService implements IPokemonService {
         return pokemon;
     }
 
-    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void> {
 
         validateUpdatePokemonDTO(updatePokemonDTO);
 
         await this.getById(updatePokemonDTO.id);
 
-        const pokemonUpdated = await this.pokemonRepository.update(updatePokemonDTO);
-
-        return pokemonUpdated;
-
+        await this.pokemonRepository.update(updatePokemonDTO);
     }
 }
 

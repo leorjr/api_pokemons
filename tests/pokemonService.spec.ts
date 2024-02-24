@@ -99,8 +99,11 @@ describe('Pokemon Service', async () => {
             treinador: "teste"
         }
 
-        const pokemonUpdated: IPokemon = await service
+        await service
             .update(updatePokemonDTO)
+
+        const pokemonUpdated: IPokemon = await service
+            .getById(updatePokemonDTO.id)
 
         expect(pokemonUpdated.treinador)
             .toEqual(updatePokemonDTO.treinador)
