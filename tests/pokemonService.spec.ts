@@ -106,4 +106,43 @@ describe('Pokemon Service', async () => {
             .toEqual(updatePokemonDTO.treinador)
     })
 
+    it('Não deve atualizar o pokemon com treinador vazio', async () => {
+
+        const updatePokemonDTO: IUpdatePokemonDTO = {
+            id: 1,
+            treinador: ""
+        }
+
+
+        await expect(service.update(updatePokemonDTO))
+            .rejects
+            .toThrowError('treinador precisa ter, ao menos, 3 caracteres');
+    })
+
+    it('Não deve atualizar o pokemon com treinador com menos de 3 letras', async () => {
+
+        const updatePokemonDTO: IUpdatePokemonDTO = {
+            id: 1,
+            treinador: "ab"
+        }
+
+
+        await expect(service.update(updatePokemonDTO))
+            .rejects
+            .toThrowError('treinador precisa ter, ao menos, 3 caracteres');
+    })
+
+    it('Não deve atualizar o pokemon com id não localizado', async () => {
+
+        const updatePokemonDTO: IUpdatePokemonDTO = {
+            id: 5,
+            treinador: "teste"
+        }
+
+
+        await expect(service.update(updatePokemonDTO))
+            .rejects
+            .toThrowError('pokemon com id 5 não encontrado!');
+    })
+
 })
