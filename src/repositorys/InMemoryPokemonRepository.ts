@@ -45,7 +45,7 @@ class InMemoryPokemonRepository implements IPokemonRepository {
         return newPokemon;
     }
 
-    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void> {
 
         const pokemonIndex: number = this.pokemons
             .findIndex(pokemon => pokemon.id == updatePokemonDTO.id);
@@ -55,9 +55,14 @@ class InMemoryPokemonRepository implements IPokemonRepository {
         pokemonToUpdate.treinador = updatePokemonDTO.treinador;
 
         this.pokemons.splice(pokemonIndex, 1, pokemonToUpdate);
+    }
 
-        return pokemonToUpdate;
+    async delete(id: number): Promise<void> {
 
+        const pokemonIndex: number = this.pokemons
+            .findIndex(pokemon => pokemon.id == id);
+
+        this.pokemons.splice(pokemonIndex, 1);
     }
 
 }

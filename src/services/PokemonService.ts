@@ -44,6 +44,13 @@ class PokemonService implements IPokemonService {
 
         await this.pokemonRepository.update(updatePokemonDTO);
     }
+
+    async delete(id: number): Promise<void> {
+
+        await this.getById(id);
+
+        await this.pokemonRepository.delete(id);
+    }
 }
 
 export {

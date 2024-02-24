@@ -37,6 +37,14 @@ class PokemonController {
 
         response.status(204).send()
     }
+
+    static async delete(request: Request, response: Response) {
+        const { id } = request.params;
+
+        await pokemonService.delete(Number(id))
+
+        response.status(204).send()
+    }
 }
 
 export {

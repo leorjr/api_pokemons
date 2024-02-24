@@ -7,6 +7,7 @@ interface IPokemonService {
     getById(id: number): Promise<IPokemon>;
     create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon>;
     update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void>;
+    delete(id: number): Promise<void>;
 }
 
 export { IPokemonService };

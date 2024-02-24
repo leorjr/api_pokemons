@@ -6,7 +6,8 @@ interface IPokemonRepository {
     list(): Promise<IPokemon[]>;
     getById(id: number): Promise<IPokemon | null | undefined>;
     create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon>;
-    update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon>;
+    update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void>;
+    delete(id: number): Promise<void>;
 }
 
 export {

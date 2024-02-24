@@ -35,7 +35,7 @@ class PokemonRepository implements IPokemonRepository {
         return pokemon;
     }
 
-    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<IPokemon> {
+    async update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void> {
 
         const pokemonUpdated = await prisma.pokemon.update({
             where: {
@@ -45,8 +45,15 @@ class PokemonRepository implements IPokemonRepository {
                 treinador: updatePokemonDTO.treinador
             }
         })
+    }
 
-        return pokemonUpdated;
+    async delete(id: number): Promise<void> {
+
+        await prisma.pokemon.delete({
+            where: {
+                id
+            }
+        })
     }
 }
 

@@ -148,4 +148,28 @@ describe('Pokemon Service', async () => {
             .toThrowError('pokemon com id 5 não encontrado!');
     })
 
+    it('Deve deletar o pokemon com sucesso', async () => {
+
+        const id: number = 1
+
+        await service
+            .delete(id)
+
+        await expect(service.getById(id))
+            .rejects
+            .toThrowError('pokemon com id 1 não encontrado!');
+    })
+
+    it('Não deve deletar o pokemon com id não localizado', async () => {
+
+        const id: number = 2
+
+        await service
+            .delete(id)
+
+        await expect(service.getById(id))
+            .rejects
+            .toThrowError('pokemon com id 2 não encontrado!');
+    })
+
 })
