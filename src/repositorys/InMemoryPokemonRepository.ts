@@ -65,6 +65,17 @@ class InMemoryPokemonRepository implements IPokemonRepository {
         this.pokemons.splice(pokemonIndex, 1);
     }
 
+    async updateLevel(id: number, novoNivel: number): Promise<void> {
+        const pokemonIndex: number = this.pokemons
+            .findIndex(pokemon => pokemon.id == id);
+
+        const pokemonToUpdate = this.pokemons[pokemonIndex];
+
+        pokemonToUpdate.nivel = novoNivel;
+
+        this.pokemons.splice(pokemonIndex, 1, pokemonToUpdate);
+    }
+
 }
 
 export {

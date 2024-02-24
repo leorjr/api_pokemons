@@ -2,7 +2,9 @@ import { CustomErrorBase } from "../errors/CustomErrorBase";
 import { IPokemonRepository } from "../repositorys/IPokemonRepository";
 import { ICreatePokemonDTO } from "../types/ICreatePokemonDTO";
 import { IPokemon } from "../types/IPokemon";
+import { IResult } from "../types/IResult";
 import { IUpdatePokemonDTO } from "../types/IUpdatePokemonDTO";
+import { makeBattlePokemon, updateInformationsBattle, validatePokemonBattle } from "../utils/battlePokemon";
 import { validateCreatePokemonDTO } from "../utils/validateCreatePokemonDTO";
 import { validateUpdatePokemonDTO } from "../utils/validateUpdatePokemonDTO";
 import { IPokemonService } from "./IPokemonService";
@@ -20,7 +22,7 @@ class PokemonService implements IPokemonService {
         const pokemon: IPokemon | undefined | null = await this.pokemonRepository.getById(id);
 
         if (!pokemon) {
-            throw new CustomErrorBase(404, `pokemon com id ${id} não encontrado!`)
+            throw new CustomErrorBase(404, `pokemon id ${id} not found!`)
         }
 
         return pokemon;
@@ -50,6 +52,20 @@ class PokemonService implements IPokemonService {
         await this.getById(id);
 
         await this.pokemonRepository.delete(id);
+    }
+
+    async batalhar(idPokemonA: number, idPokemonB: number): Promise<IResult> {
+
+        validatePokemonBattle(idPokemonA, idPokemonB)
+
+        const pokemonA = await this.getById(idPokemonA)
+        const pokemonB = await this.getById(idPokemonB);
+
+        const { winner, loser } = makeBattlePokemon(pokemonA, pokemonB);
+
+        const resultUpdated = await updateInformationsBattle(winner, loser, this.pokemonRepository);
+
+        return resultUpdated
     }
 }
 

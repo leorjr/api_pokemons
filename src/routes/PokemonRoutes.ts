@@ -9,6 +9,7 @@ pokemonRouter.get('/:id', wrapAction(PokemonController.getById))
 pokemonRouter.post('/', wrapAction(PokemonController.create))
 pokemonRouter.put('/:id', wrapAction(PokemonController.update))
 pokemonRouter.delete('/:id', wrapAction(PokemonController.delete))
+pokemonRouter.post('/batalhar/:idPokemonA/:idPokemonB', wrapAction(PokemonController.batalhar))
 
 export {
     pokemonRouter

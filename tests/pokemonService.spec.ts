@@ -34,7 +34,7 @@ describe('Pokemon Service', async () => {
 
         await expect(service.getById(id))
             .rejects
-            .toThrowError(`pokemon com id 2 não encontrado!`);
+            .toThrowError(`pokemon id ${id} not found!`);
     })
 
     it('Deve cadastrar um novo pokemon', async () => {
@@ -148,7 +148,7 @@ describe('Pokemon Service', async () => {
 
         await expect(service.update(updatePokemonDTO))
             .rejects
-            .toThrowError('pokemon com id 5 não encontrado!');
+            .toThrowError(`pokemon id ${updatePokemonDTO.id} not found!`);
     })
 
     it('Deve deletar o pokemon com sucesso', async () => {
@@ -160,7 +160,7 @@ describe('Pokemon Service', async () => {
 
         await expect(service.getById(id))
             .rejects
-            .toThrowError('pokemon com id 1 não encontrado!');
+            .toThrowError(`pokemon id ${id} not found!`);
     })
 
     it('Não deve deletar o pokemon com id não localizado', async () => {
@@ -169,7 +169,7 @@ describe('Pokemon Service', async () => {
 
         await expect(service.delete(id))
             .rejects
-            .toThrowError('pokemon com id 2 não encontrado!');
+            .toThrowError(`pokemon id ${id} not found!`);
     })
 
 })

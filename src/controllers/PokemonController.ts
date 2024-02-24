@@ -45,6 +45,14 @@ class PokemonController {
 
         response.status(204).send()
     }
+
+    static async batalhar(request: Request, response: Response) {
+        const { idPokemonA, idPokemonB } = request.params;
+
+        const result = await pokemonService.batalhar(Number(idPokemonA), Number(idPokemonB))
+
+        response.status(200).json(result)
+    }
 }
 
 export {

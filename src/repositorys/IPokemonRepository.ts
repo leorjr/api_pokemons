@@ -8,6 +8,7 @@ interface IPokemonRepository {
     create(createPokemonDTO: ICreatePokemonDTO): Promise<IPokemon>;
     update(updatePokemonDTO: IUpdatePokemonDTO): Promise<void>;
     delete(id: number): Promise<void>;
+    updateLevel(id: number, novoNivel: number): Promise<void>;
 }
 
 export {

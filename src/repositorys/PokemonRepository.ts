@@ -55,6 +55,17 @@ class PokemonRepository implements IPokemonRepository {
             }
         })
     }
+
+    async updateLevel(id: number, novoNivel: number): Promise<void> {
+        await prisma.pokemon.update({
+            where: {
+                id
+            },
+            data: {
+                nivel: novoNivel
+            }
+        })
+    }
 }
 
 export {
