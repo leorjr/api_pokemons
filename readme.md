@@ -218,6 +218,58 @@ sem corpo
 }
 ```
 
+### Realizar batalha entre pokemons
+
+- **Endpoint:** `/pokemons/:idPokemonA/:idPokemonB`
+- **Método:** POST
+- **Parâmetros da URL:** idPokemonA (id de um pokemon qualquer) | idPokemonB (id de um pokemon qualquer)
+- **Corpo da Requisição (JSON):**
+
+```json
+sem corpo
+```
+
+- **Status Code: 200**
+- **Ex. Resposta (JSON):**
+
+```json
+{
+	"vencedor": {
+		"id": 9,
+		"tipo": "pikachu",
+		"treinador": "ash",
+		"nivel": 3
+	},
+	"perdedor": {
+		"id": 10,
+		"tipo": "charizard",
+		"treinador": "brok",
+		"nivel": 0
+	}
+}
+```
+
+- **Status Code: 404**
+- **Ex. Resposta (JSON):**
+
+```json
+//  em caso de ser passado um pokemon não cadastrado no banco de dados
+{
+	"success": false,
+	"status": 404,
+	"message": "pokemon id 9 not found!"
+}
+```
+
+```json
+//  em caso de serem passados dois ids iguais"
+{
+	"success": false,
+	"status": 404,
+	"message": "You need to pass two differents ids"
+}
+```
+
 ### Testes
 
 Para os rodar os testes que foram implementados, os mesmos devem ser feitos fora do container docker. Logo, será necessário instalar as dependencias do projeto em sua própria máquina. Siga os passos:
