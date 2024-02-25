@@ -1,6 +1,19 @@
 version: "3"
 
 services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: leofill/api-pokemons
+    ports:
+      - "3000:3000"
+    networks:
+      - app-pokemon-jazida
+    depends_on:
+      - database
+    command: bash -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+
   database:
     image: bitnami/postgresql
     container_name: database
@@ -13,6 +26,13 @@ services:
       - "5432:5432"
     volumes:
       - data:/var/lib/postgresql/data
+    networks:
+      - app-pokemon-jazida
 
 volumes:
   data:
+
+
+networks:
+  app-pokemon-jazida:
+    driver: bridge
