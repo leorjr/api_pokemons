@@ -1,6 +1,6 @@
-# API POKEMONS JAZIDA
+# API POKEMONS
 
-A API POKEMONS JAZIDA é uma aplicação que permite o gerenciamento de pokemons específicos, bem como a batalha entre eles;
+A API POKEMONS é uma aplicação que permite o gerenciamento de pokemons específicos, bem como a batalha entre eles;
 
 ## Tecnologias Utilizadas
 
